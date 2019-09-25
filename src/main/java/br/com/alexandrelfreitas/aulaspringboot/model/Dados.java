@@ -7,6 +7,6 @@ import lombok.*;
 @RequiredArgsConstructor
 public class Dados {
 
-    @NonNull String id;
+    @NonNull Integer id;
     String nome;
 }

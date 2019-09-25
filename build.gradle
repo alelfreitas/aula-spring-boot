@@ -1,12 +1,13 @@
 buildscript {
 	repositories {
-		maven {
-			url "${artifactory_contextUrl}"
-			credentials {
-				username = "${artifactory_user}"
-				password = "${artifactory_password}"
-			}
-		}
+//		maven {
+//			url "${artifactory_contextUrl}"
+//			credentials {
+//				username = "${artifactory_user}"
+//				password = "${artifactory_password}"
+//			}
+//		}
+		mavenCentral()
 		dependencies {
 			classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.8.RELEASE"
 		}
@@ -22,18 +23,21 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
-	maven {
-		url "${artifactory_contextUrl}"
-		credentials {
-			username = "${artifactory_user}"
-			password = "${artifactory_password}"
-		}
-	}
+//	maven {
+//		url "${artifactory_contextUrl}"
+//		credentials {
+//			username = "${artifactory_user}"
+//			password = "${artifactory_password}"
+//		}
+//	}
+	mavenCentral()
 }
 
 dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.4'
 	annotationProcessor 'org.projectlombok:lombok:1.18.4'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+	runtimeOnly "mysql:mysql-connector-java"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
