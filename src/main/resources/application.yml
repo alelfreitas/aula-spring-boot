@@ -14,3 +14,22 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/tradesys
     username: tradedb
     password: tradedbsystem
+    #Configurações de conexão com a instância do RabbitMQ
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: gecapsp
+    password: tradesystem
+    #Nome exchange a ser criado pelo projeto no output
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: mensagem-simples
+        canal-mensage:
+          destination: teste
+
+          #para consumer
+        input:
+          destination: canal-mensagem
+          group: teste
