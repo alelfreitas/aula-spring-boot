@@ -1,0 +1,48 @@
+version: "3"
+services:
+  mysql:
+    image: mysql/mysql-server:5.7
+    ports:
+      - 3306:3306
+    volumes:
+#      - ../.docker/config/:/docker-entrypoint-initdb.d
+      - ../.docker/mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=table
+      - TZ=Brazil/East
+    networks:
+      - net
+
+  rabbit:
+    image: rabbitmq:management
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+      - 25672:25672
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=pass
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - net
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+
+networks:
+  net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "111.111.10.0/24"
